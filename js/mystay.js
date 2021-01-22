@@ -1,36 +1,107 @@
-$(function () {
+const images = [
+    'images/aron-yigin-Xh8nvuh-eBc-unsplash.jpg',
+    'images/brandon-morales-010qQcTFj9g-unsplash.jpg',
+    'images/julian-steenbergen-gRk4A_fCgJI-unsplash.jpg',
+    'images/lubo-minar-HtwoCTvT8ng-unsplash.jpg',
+    'images/sam-moqadam-KJ241ZAOYwU-unsplash.jpg',
+    'images/max-whitehead-o2kvosAH1Bg-unsplash.jpg',
+]
+const descriptions = images
+const details = [
+    {
+        city: 'alfa-1',
+        name: 'robocomo',
+        check_in_time: '10 - 20',
+        wifi: true,
+        distance_airport: '200',
+        bar_time: '17-18',
+        ac: '1',
+        gym: true,
+        pool: true
+    },
+    {
+        city: 'romio-91',
+        name: 'flatoon',
+        check_in_time: '4 - 6',
+        wifi: false,
+        distance_airport: '1',
+        bar_time: '12-23',
+        ac: '2',
+        gym: true,
+        pool: true
+    },
+    {
+        city: 'ten-blinko',
+        name: 'cala fahr',
+        check_in_time: '6 - 12',
+        wifi: 1,
+        distance_airport: '21',
+        bar_time: '16-22',
+        ac: '0',
+        gym: false,
+        pool: false
+    },
+    {
+        city: 'one-blinko',
+        name: 'gora nahr',
+        check_in_time: '5 - 22',
+        wifi: 1,
+        distance_airport: '1',
+        bar_time: '10-22',
+        ac: true,
+        gym: true,
+        pool: true
+    },
+    {
+        city: 'bumkiss',
+        name: 'blingnate golder',
+        check_in_time: '17 - 23',
+        wifi: 0,
+        distance_airport: '12',
+        bar_time: '18-20',
+        ac: '0',
+        gym: true,
+        pool: false
+    },
+    {
+        city: 'flimkits',
+        name: 'gajar pad',
+        check_in_time: '17 - 23',
+        wifi: 0,
+        distance_airport: '42',
+        bar_time: '1-20',
+        ac: false,
+        gym: false,
+        pool: true
+    },
+]
+
+const HOTELS = images.map((v, i) => ({
+    image: v, description: descriptions[i], details: {...details[i]}
+}))
+
+const hotels = $(function () {
     'use strict';
 
-    var ApiHitURI = "http://glydel.0x10.info/api/hotel?type=json&query=api_hits",
-        HotelDataURI = "http://glydel.0x10.info/api/hotel?type=json&query=list_hotels",
-        googleMapSearchURI = "https://www.google.com/maps/search/",
-        HotelData = null,
+    var HotelData = HOTELS,
 
         fetchApiHitCount = function () {
-            var apiHitCountPromise = $.getJSON(ApiHitURI)
-                .done(function (json) {
-                    $('#stat-api-hits span.badge').html(json.api_hits);
-                })
-                .fail(function (jqxhr, textStatus, error) {
-                    $('#stat-api-hits span.badge').html("0");
-                    console.error("ERROR: " + textStatus + ", " + error);
-                    console.error("While Fetching API Hit count from: " + ApiHitURI);
-                })
-                .always(function () {
-                    console.log("Fetching API hit count finished.");
-                });
+            const API_HITS = Date.now();
+            $('#stat-api-hits span.badge').html(API_HITS);
+            console.log("Fetching API hit count finished.");
         },
 
         fetchHotelCount = function () {
-            var hotelCountPromise = $.getJSON(HotelDataURI)
+            const HOTEL_COUNT = Math.floor(Math.random() * 100);
+            const HOTEL_COUNT_CONTAINER = $('#stat-hotel-count');
+            HOTEL_COUNT_CONTAINER.css('text-align', 'center')
+            $.getJSON(HotelDataURI)
                 .done(function (json) {
-                    console.log(json.length);
-                    $('#stat-hotel-count')
-                        .css('text-align', 'center')
-                        .html("Hotel count: " + json.length);
-
+                    console.log(json.length || HOTEL_COUNT);
+                    HOTEL_COUNT_CONTAINER.html("Hotel count: " + json.length);
                 })
                 .fail(function (jqxhr, textStatus, error) {
+                    HOTEL_COUNT_CONTAINER.html("Hotel count: " + HOTEL_COUNT);
                     console.error("ERROR: " + textStatus + ", " + error);
                     console.error("While Fetching Hotel count from: " + HotelDataURI);
                 })
@@ -40,6 +111,8 @@ $(function () {
         },
 
         updateHotelInfo = function () {
+            createHotelNavList('hotels', HotelData);
+            initiateHotelPresentation();
             var hotelDataPromise = $.getJSON(HotelDataURI)
                 .done(function (json) {
                     if (json !== null && json !== undefined) {
@@ -69,6 +142,7 @@ $(function () {
             if (HotelData !== null) {
                 $.each(HotelData, function () {
                     $.each(this, function (key, val) {
+                        console.log(key, val)
                         if (key === "name") {
                             addHotelNav({stackedNav: stackedNav, val: val});
                         }
