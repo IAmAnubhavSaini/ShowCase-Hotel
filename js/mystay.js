@@ -84,51 +84,7 @@ const hotels = $(function () {
     'use strict';
 
     var HotelData = HOTELS,
-
-        fetchApiHitCount = function () {
-            const API_HITS = Date.now();
-            $('#stat-api-hits span.badge').html(API_HITS);
-            console.log("Fetching API hit count finished.");
-        },
-
-        fetchHotelCount = function () {
-            const HOTEL_COUNT = Math.floor(Math.random() * 100);
-            const HOTEL_COUNT_CONTAINER = $('#stat-hotel-count');
-            HOTEL_COUNT_CONTAINER.css('text-align', 'center')
-            $.getJSON(HotelDataURI)
-                .done(function (json) {
-                    console.log(json.length || HOTEL_COUNT);
-                    HOTEL_COUNT_CONTAINER.html("Hotel count: " + json.length);
-                })
-                .fail(function (jqxhr, textStatus, error) {
-                    HOTEL_COUNT_CONTAINER.html("Hotel count: " + HOTEL_COUNT);
-                    console.error("ERROR: " + textStatus + ", " + error);
-                    console.error("While Fetching Hotel count from: " + HotelDataURI);
-                })
-                .always(function () {
-                    console.log("Fetching hotel count finished.");
-                });
-        },
-
-        updateHotelInfo = function () {
-            createHotelNavList('hotels', HotelData);
-            initiateHotelPresentation();
-            var hotelDataPromise = $.getJSON(HotelDataURI)
-                .done(function (json) {
-                    if (json !== null && json !== undefined) {
-                        HotelData = json;
-                        createHotelNavList('hotels', HotelData);
-                        initiateHotelPresentation();
-                    }
-                })
-                .fail(function (jqxhr, textStatus, error) {
-                    console.error("ERROR: " + textStatus + ", " + error);
-                    console.error("While Fetching Hotel data from: " + HotelDataURI);
-                })
-                .always(function () {
-                    console.log("Fetching hotel data finished.");
-                });
-        },
+        apihits = 0,
 
         addHotelNav = function (options) {
             var tempid = options.val.replace(/ /g, '_') + '_link';
@@ -136,20 +92,28 @@ const hotels = $(function () {
             listitem.appendTo(options.stackedNav);
         },
 
+        fetchApiHitCount = function () {
+            $('#stat-api-hits span.badge').html(apihits++);
+        },
+
+        fetchHotelCount = function () {
+            const HOTEL_COUNT = HotelData.length;
+            const HOTEL_COUNT_CONTAINER = $('#stat-hotel-count');
+            HOTEL_COUNT_CONTAINER.css('text-align', 'center')
+            console.log(HotelData.length || HOTEL_COUNT);
+            HOTEL_COUNT_CONTAINER.html("Hotel count: " + HotelData.length);
+        },
+
+        updateHotelInfo = function () {
+            createHotelNavList('hotels', HotelData);
+            initiateHotelPresentation();
+        },
+
         createHotelNavList = function (containerId, HotelData) {
-            var container = $('#' + containerId);
-            var stackedNav = $('<ul class="nav nav-pills nav-stacked"></ul>');
-            if (HotelData !== null) {
-                $.each(HotelData, function () {
-                    $.each(this, function (key, val) {
-                        console.log(key, val)
-                        if (key === "name") {
-                            addHotelNav({stackedNav: stackedNav, val: val});
-                        }
-                    });
-                });
-                container.html(stackedNav);
-            }
+            const container = $('#' + containerId);
+            const stackedNav = $('<ul class="nav nav-pills nav-stacked"></ul>');
+            HotelData.forEach(data => addHotelNav({stackedNav, val: data.details.name}))
+            container.html(stackedNav);
         },
 
         createListItem = function (options) {
