@@ -182,15 +182,16 @@ const hotels = $(function () {
                 document.location = googleMapSearchURI + HotelData[index].details.name + ", " + HotelData[index].details.city;
             });
             $('#HotelCheckInOutTimings').html("Check-in hours " + HotelData[index].details.check_in_time.replace('-', ' to '));
-            $('#HotelWiFiServiceAvailability').html(HotelData[index].details.wifi === "yes" || HotelData[index].details.wifi === "1" ? "Wifi available" : "Wifi unavailable");
+            const wifi = HotelData[index].details.wifi
+            $('#HotelWiFiServiceAvailability').html(!!wifi ? "Wifi available" : "Wifi unavailable");
         },
 
         loadHotelMoreInfo = function (index) {
             $('#HotelDistanceFromAirportInfo').html(HotelData[index].details.distance_airport);
             $('#HoteBarInfo').html(HotelData[index].details.bar_time.replace('-', ' to '));
-            $('#HotelAirConditionerInfo').html(HotelData[index].details.ac !== "1" ? "no" : "yes");
-            $('#HotelGymInfo').html(HotelData[index].details.gym !== "1" ? "no" : "yes");
-            $('#HotelPoolInfo').html(HotelData[index].details.pool !== "1" ? "no" : "yes");
+            $('#HotelAirConditionerInfo').html(!!HotelData[index].details.ac ? "yes" : "no");
+            $('#HotelGymInfo').html(!!HotelData[index].details.gym ? "yes" : "no");
+            $('#HotelPoolInfo').html(!!HotelData[index].details.pool ? "yes" : "no");
         },
 
         loadHotelRoomInfo = function (index) {

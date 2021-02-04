@@ -76,3 +76,13 @@ img {
         display: none;
     }
 }
+
+#HotelRoomInfoContainer::before {
+    content: 'Rooms';
+    display: block;
+}
+
+#HotelMoreInfo::before {
+    content: 'Perks';
+    display: block;
+}
