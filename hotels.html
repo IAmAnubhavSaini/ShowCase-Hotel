@@ -1,138 +1,144 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>myStay hotels page - simplified hotel browsing - Glydel Web Developers Challenge</title>
-    <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
-    <link href="css/mystay.css" type="text/css" rel="stylesheet" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/mystay.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-    <nav class="navbar navbar-default">
-      <div class="container">
+<nav class="navbar navbar-default">
+    <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">myStay</a>
+            <button aria-expanded="false" class="navbar-toggle collapsed" data-target="#bs-example-navbar-collapse-1"
+                    data-toggle="collapse" type="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">myStay</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="hotels.html">Hotels <span class="sr-only">(current)</span></a></li>
-          </ul>
-          
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown" id="stat-fetcher">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stats<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li id="stat-api-hits">
-                      Api hits <span class="badge">0</span>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="hotels.html">Hotels <span class="sr-only">(current)</span></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown" id="stat-fetcher">
+                    <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-toggle="dropdown"
+                       href="#"
+                       role="button">Stats<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li id="stat-api-hits">
+                            Api hits <span class="badge">0</span>
+                        </li>
+                        <li id="stat-hotel-count">
+                            Hotel count <span class="badge">0</span>
+                        </li>
+                    </ul>
                 </li>
-                <li id="stat-hotel-count">
-                      Hotel count <span class="badge">0</span>
-                </li>
-              </ul>
-            </li>
-          </ul>
+            </ul>
         </div>
-      </div>
-    </nav>
-    <div class="container" id="hotel-data">
-        <div class="row">
-            <div id="hotel-presentation" class="col-md-10">
-                <div class="container">
-                    <div class="row col-md-10">
-                        <div class="col-md-3" id="HotelImageContainer">
-                            <img id="HotelImage" height="200" width="200" />
+    </div>
+</nav>
+<div class="container" id="hotel-data">
+    <div class="row">
+        <div class="col-md-10" id="hotel-presentation">
+            <div class="container">
+                <div class="row col-md-10">
+                    <div class="col-md-3" id="HotelImageContainer">
+                        <img height="200" id="HotelImage" width="200"/>
+                    </div>
+                    <div class="col-md-4" id="HotelRecognition">
+                        <div id="HotelName"></div>
+                        <div id="HotelRatings">
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
+                            <span class="glyphicon glyphicon-star-empty"></span>
                         </div>
-                        <div class="col-md-4" id="HotelRecognition">
-                            <div id="HotelName"></div>
-                            <div id="HotelRatings">
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                                <span class="glyphicon glyphicon-star-empty"></span>
-                            </div>
-                            <div id="HotelFavorite">
-                                <span class="glyphicon glyphicon-heart-empty"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-5" id="HotelBasicInfo">
-                            <div class="item" id="HotelLocationContainer">
-                                <span class="glyphicon glyphicon-map-marker"></span>
-                                <span id="HotelLocationCity"></span>
-                            </div>
-                            <div class="item" id="HotelCheckInOutTimingContainer">
-                                <span class="glyphicon glyphicon-time"></span>
-                                <span id="HotelCheckInOutTimings"></span>
-                            </div>
-                            <div class="item" id="HotelInernetServiceContainer">
-                                <span class="glyphicon glyphicon-signal"></span>
-                                <span id="HotelWiFiServiceAvailability"></span>
-                            </div>
-                            <div class="item" id="HotelPaymentContainer">
-                                <span class="glyphicon glyphicon-credit-card"></span>
-                                <span id="HotelPaymentOptions">Cash or Credit card</span>
-                            </div>
+                        <div id="HotelFavorite">
+                            <span class="glyphicon glyphicon-heart-empty"></span>
                         </div>
                     </div>
-                    
-                    <div class="row col-md-10">
-                        <div class="well" id="HotelDescription"></div>
-                    </div>
-                    
-                    <div class="row col-md-10">
-                        <div class="col-md-7" id="HotelRoomInfoContainer">
+                    <div class="col-md-5" id="HotelBasicInfo">
+                        <div class="item" id="HotelLocationContainer">
+                            <span class="glyphicon glyphicon-map-marker"></span>
+                            <span id="HotelLocationCity"></span>
                         </div>
-                        <div class="col-md-5" id="HotelMoreInfo">
-                            <div class="item" >
-                                <span>Distance from Airport</span><span class="more-info-value" id="HotelDistanceFromAirportInfo"></span>
-                            </div>
-                            <div class="item" >
-                                <span>Bar</span><span class="more-info-value" id="HoteBarInfo"></span>
-                            </div>
-                            <div class="item" >
-                                <span>Air Conditioner</span><span class="more-info-value" id="HotelAirConditionerInfo"></span>
-                            </div>
-                            <div class="item" >
-                                <span>Gym</span><span class="more-info-value" id="HotelGymInfo"></span>
-                            </div>
-                            <div class="item" >
-                                <span>Pool</span><span class="more-info-value" id="HotelPoolInfo"></span>
-                            </div>
+                        <div class="item" id="HotelCheckInOutTimingContainer">
+                            <span class="glyphicon glyphicon-time"></span>
+                            <span id="HotelCheckInOutTimings"></span>
+                        </div>
+                        <div class="item" id="HotelInernetServiceContainer">
+                            <span class="glyphicon glyphicon-signal"></span>
+                            <span id="HotelWiFiServiceAvailability"></span>
+                        </div>
+                        <div class="item" id="HotelPaymentContainer">
+                            <span class="glyphicon glyphicon-credit-card"></span>
+                            <span id="HotelPaymentOptions">Cash or Credit card</span>
                         </div>
                     </div>
-                    
-                    <div class="row col-md-10" id="Extra">
-                        <div class="col-md-2 item" id="PrintHotel">
-                            <span class="glyphicon glyphicon-print"></span><span> print</span>
+                </div>
+
+                <div class="row col-md-10">
+                    <div class="well" id="HotelDescription"></div>
+                </div>
+
+                <div class="row col-md-10">
+                    <div class="col-md-7" id="HotelRoomInfoContainer">
+                    </div>
+                    <div class="col-md-5" id="HotelMoreInfo">
+                        <div class="item">
+                            <span>Distance from Airport</span><span class="more-info-value"
+                                                                    id="HotelDistanceFromAirportInfo"></span>
                         </div>
+                        <div class="item">
+                            <span>Bar</span><span class="more-info-value" id="HoteBarInfo"></span>
+                        </div>
+                        <div class="item">
+                            <span>Air Conditioner</span><span class="more-info-value"
+                                                              id="HotelAirConditionerInfo"></span>
+                        </div>
+                        <div class="item">
+                            <span>Gym</span><span class="more-info-value" id="HotelGymInfo"></span>
+                        </div>
+                        <div class="item">
+                            <span>Pool</span><span class="more-info-value" id="HotelPoolInfo"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-md-10" id="Extra">
+                    <div class="col-md-2 item" id="PrintHotel">
+                        <span class="glyphicon glyphicon-print"></span><span> print</span>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div id="SearchFormForListedHotels">
-                    <form class="form">
-                        <div class="form-group">
-                            <label class="sr-only" for="searchInListedHotels">Search in listed hotels</label>
-                            <input type="text" class="form-control" id="searchInListedHotels" placeholder="search">
-                        </div>
-                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                    </form>
-                </div>
-                <div id="hotels" >Loading...</div>
-            </div> 
-            
         </div>
+        <div class="col-md-2">
+            <div id="SearchFormForListedHotels">
+                <form class="form">
+                    <div class="form-group">
+                        <label class="sr-only" for="searchInListedHotels">Search in listed hotels</label>
+                        <input class="form-control" id="searchInListedHotels" placeholder="search" type="text">
+                    </div>
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+            <div id="hotels">Loading...</div>
+        </div>
+
     </div>
-    <div id="scripts">
-        <script src="js/jquery-2.1.4.min.js" type="application/javascript"></script>
-        <script src="js/bootstrap.min.js" type="application/javascript"></script>
-        <script src="js/ie10-viewport-bug-workaround.js" type="application/javascript"></script>
-        <script src="js/mystay.js" type="application/javascript"></script>
-    </div>
+</div>
+<div id="scripts">
+    <script src="js/jquery-2.1.4.min.js" type="application/javascript"></script>
+    <script src="js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="js/ie10-viewport-bug-workaround.js" type="application/javascript"></script>
+    <script src="js/mystay.js" type="application/javascript"></script>
+</div>
 </body>
 </html>

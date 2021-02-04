@@ -1,11 +1,11 @@
-body{
+body {
     font-size: 16px;
     line-height: 16px;
 }
 
-#stat-api-hits, #stat-hotel-count{
-	text-align: right;
-	padding:5px 20px;
+#stat-api-hits, #stat-hotel-count {
+    text-align: right;
+    padding: 5px 20px;
 }
 
 #hotel-presentation {
@@ -14,45 +14,49 @@ body{
 }
 
 #hotel-presentation div.row {
-	margin: 15px 0;
-	padding: 5px;
+    margin: 15px 0;
+    padding: 5px;
 }
 
-#hotel-presentation div.item{
+#hotel-presentation div.item {
     margin: 4px 0;
 }
 
-.more-info-value, .room-info-value{
+.more-info-value, .room-info-value {
     float: right;
 }
 
-img{
+img {
     border: thick solid rgba(240, 240, 240, 0.3);
 }
 
-#HotelMoreInfo div.item, #HotelBasicInfo div.item, #HotelRoomInfoContainer div.item{
+#HotelMoreInfo div.item, #HotelBasicInfo div.item, #HotelRoomInfoContainer div.item {
     border-bottom: thin solid rgba(32, 32, 32, .32);
 }
 
-#HotelMoreInfo div.item:hover, #HotelBasicInfo div.item:hover, #HotelRoomInfoContainer div.item:hover{
+#HotelMoreInfo div.item:hover, #HotelBasicInfo div.item:hover, #HotelRoomInfoContainer div.item:hover {
     border-bottom: thin solid #000000;
 }
 
-#HotelRoomInfoContainer, #HotelMoreInfo, #HotelBasicInfo, #HotelRecognition, #SearchFormForListedHotels { margin-bottom: 4px; }
+#HotelRoomInfoContainer, #HotelMoreInfo, #HotelBasicInfo, #HotelRecognition, #SearchFormForListedHotels {
+    margin-bottom: 4px;
+}
 
-#PrintHotel, #HotelLocationContainer{ cursor: pointer; }
+#PrintHotel, #HotelLocationContainer {
+    cursor: pointer;
+}
 
 #HotelLocationContainer .glyphicon {
     color: #FF0000;
 }
 
-#Extra .item{
+#Extra .item {
     padding-top: 5px;
     text-align: center;
     border-bottom: thin solid rgba(32, 32, 32, .32);
 }
 
-#Extra .item:hover{
+#Extra .item:hover {
     border-bottom: thin solid #000000;
     background-color: rgba(32, 32, 32, .07);
 }
@@ -61,13 +65,24 @@ img{
     text-shadow: none;
 }
 
-@media print{
+@media print {
     div, span, img, h1, h2, h3, h4, h5, h6, a, li, ul, ol {
         font-size: 14px;
         margin: 0;
         padding: 0;
     }
-    #hotels, #PrintHotel{
+
+    #hotels, #PrintHotel {
         display: none;
     }
+}
+
+#HotelRoomInfoContainer::before {
+    content: 'Rooms';
+    display: block;
+}
+
+#HotelMoreInfo::before {
+    content: 'Perks';
+    display: block;
 }
