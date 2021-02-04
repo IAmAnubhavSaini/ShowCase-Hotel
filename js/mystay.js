@@ -6,7 +6,14 @@ const images = [
     'images/sam-moqadam-KJ241ZAOYwU-unsplash.jpg',
     'images/max-whitehead-o2kvosAH1Bg-unsplash.jpg',
 ]
-const descriptions = images
+const descriptions = [
+    'A beautiful robo camp with robocomo brand guarantee',
+    'Flatoon - a place where are flat heads meet',
+    'Experience the calmness',
+    'Greatest national treasure',
+    'This is gold. This is blingnate golder.',
+    'The pad for your gajar. Better than halwa, hotter than air.'
+]
 const details = [
     {
         city: 'alfa-1',
@@ -75,9 +82,20 @@ const details = [
         pool: true
     },
 ]
+const rooms = [
+    [{type: 'roto', price: '2324',}, {type: 'xrobo', price: '12345',}, {type: 'auto', price: '34345'}, {
+        type: 'bling',
+        price: '99999',
+    }],
+    [{type: 'xballoon', price: '1234',}, {type: 'oon', price: '4345',}],
+    [{type: 'cols', price: '1111',}, {type: 'fools', price: '2222',}],
+    [{type: 'xex', price: '123',}, {type: 'most', price: '333',}, {type: 'heavy', price: '999',}],
+    [{type: 'ek', price: '999',}],
+    [{type: 'boom pad', price: '1000',}]
+]
 
 const HOTELS = images.map((v, i) => ({
-    image: v, description: descriptions[i], details: {...details[i]}
+    image: v, description: descriptions[i], details: {...details[i]}, rooms: [...rooms[i]]
 }))
 
 const hotels = $(function () {
@@ -190,9 +208,9 @@ const hotels = $(function () {
             var tempRoomName = undefined, tempRoomValue = undefined, tempRoom = undefined;
 
             container.html('');
-            $.each(HotelData[index].rooms, function () {
-                tempRoomName = createRoomInfoItemName(this.type);
-                tempRoomValue = createRoomInfoItemValue(this.price);
+            HotelData[index].rooms.forEach(({type, price}) => {
+                tempRoomName = createRoomInfoItemName(type);
+                tempRoomValue = createRoomInfoItemValue(price);
                 tempRoom = createRoomInfoItem();
                 tempRoom.append(tempRoomName);
                 tempRoom.append(tempRoomValue);
